@@ -1,5 +1,5 @@
 const lib = require('lib');
-
+const sms = require('../util/sms.js');
 /**
  * @param {string} sender The phone number that sent the text to be handled
  * @param {string} receiver The StdLib phone number that received the SMS
@@ -7,6 +7,8 @@ const lib = require('lib');
  * @param {string} createdDatetime Datetime when the SMS was sent
  * @returns {any}
  */
+
 module.exports = async (sender, receiver, message, createdDatetime, context) => {
-    return 'Received SMS!';
+    let parsedInput = sms.parseMessage(message);
+    let sentText = sms.textOut(REGISTERED_PHONE_NUMBER, sender, parsedInput[0]);
 };
