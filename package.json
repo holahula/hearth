@@ -5,7 +5,6 @@
   "author": "shun <syrao@uwaterloo.ca>",
   "main": "functions/__main__.js",
   "dependencies": {
-    "@google/maps": "^0.4.5",
     "ejs": "^2.5.7",
     "lib": "^3.0.1"
   },
