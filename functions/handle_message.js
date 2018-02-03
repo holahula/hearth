@@ -10,5 +10,8 @@ const sms = require('../util/sms.js');
 
 module.exports = async (sender, receiver, message, createdDatetime, context) => {
     let parsedInput = sms.parseMessage(message);
-    let sentText = sms.textOut(REGISTERED_PHONE_NUMBER, sender, parsedInput[0]);
+    //console.log(parsedInput);
+    let sentText = await sms.textOut(receiver, sender, parsedInput[0]);
+    //console.log(sentText);
+    return;
 };
