@@ -5,11 +5,14 @@ const lib = require('lib')({
 
 const sms = {
     parseMessage: (message) => {
-      var i = indexOf(" ");
-      var result = [message.splice(0, i), message.slice(i+1)];
+      //console.log(message);
+      var i = message.indexOf(" ");
+      //console.log(i);
+      var result = [message.slice(0, i), message.slice(i+1)];
+      //console.log(result);
       return result;
     },
-    textOut: async (sender, receiver, message)=>{
+    textOut: async (sender, receiver, message) => {
       let result = await lib.messagebird.tel.sms({
         originator: sender,
         recipient: receiver,
