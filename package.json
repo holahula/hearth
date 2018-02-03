@@ -6,7 +6,8 @@
   "main": "functions/__main__.js",
   "dependencies": {
     "ejs": "^2.5.7",
-    "lib": "^3.0.1"
+    "lib": "^3.0.1",
+    "mongoose": "^5.0.3"
   },
   "private": true,
   "stdlib": {
