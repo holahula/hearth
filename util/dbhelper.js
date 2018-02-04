@@ -1,3 +1,4 @@
+const lib = require('lib');
 const MongoClient = require('mongodb').MongoClient;
 const dbUrl = process.env.MONGO_CONNECTION_STRING;
 
@@ -6,18 +7,25 @@ const nClosest = 5;
 const dbhelper = {
   setUser: (id, type, locationString) => {
     //set user object (called by handle_message)
-    MongoClient.connect(dbUrl, function(err, db) {
-      if (err) throw err;
-      let dbo = db.db("qhacks2018");
-      let locationObj = lib.shun.directions.locate(locationString);
-      let closestObj = lib.shun.directions.closest(locationObj, getAllListings(type), nClosest);
-      var userObj = {
-        id: id,
-        location: locationObj,
-        type: type,
-        closest: closestObj
-      }
-      db.close();
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(dbUrl, async (err, db) => {
+        if (err) reject(err);
+        let dbo = db.db("qhacks2018");
+        let locationObj = await lib.shun.directions.locate(locationString);
+        let closestObj = await lib.shun.directions.closest(locationObj.address, await getAllListings(type), nClosest);
+        console.log(closestObj);
+        var userObj = {
+          id: id,
+          location: locationObj,
+          type: type,
+          closest: closestObj
+        }
+        dbo.collection("users").insertOne(userObj, (err, res) =>{
+          if (err) reject(err);
+          db.close();
+          resolve("Success!");
+        });
+      });
     });
   }
   
@@ -41,13 +49,20 @@ const dbhelper = {
   //     });
   //   });
   // }
-  
-
-
 }
 
 function getAllListings(type){
   //return all listings matching type parameter
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(dbUrl, async (err, db) => {
+      if (err) reject(err);
+      let dbo = db.db("qhacks2018");
+      let toReturn = await dbo.collection("listings").find({type: type}).toArray();
+      console.log(toReturn);
+      db.close();
+      resolve(toReturn);
+    });
+  });
 }
 
 module.exports = dbhelper;

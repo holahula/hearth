@@ -4,8 +4,11 @@ const db = require('../util/dbhelper.js');
 * @returns {any}
 */
 module.exports = async (context) => {
-  let out = "";
-  out += await db.createCollection("listings");
-  out += await db.createCollection("users");
-  return out;
+  try {
+    let test = await db.setUser(12345678, 'food', 'ARC');
+    return test;
+  }catch(err){
+    return err;
+  }
+  
 };
