@@ -11,23 +11,27 @@ const dbhelper = {
       MongoClient.connect(dbUrl, async (err, db) => {
         if (err) reject(err);
         let dbo = db.db('qhacks2018');
-        let locationObj = await lib.shun.directions.locate(locationString);
-        let closestObj = await lib.shun.directions.closest(nClosest, locationObj, await getAllListings(type));
-        let userObj = {
-          id: id,
-          location: locationObj,
-          type: type,
-          closest: closestObj
-        };
-        dbo.collection('users').replaceOne({
-          id: id
-        }, userObj, {
-          upsert: true
-        }, (err, res) => {
-          if (err) reject(err);
-          db.close();
-          resolve(closestObj);
-        });
+        try {
+          let locationObj = await lib.shun.directions['@dev'].locate(locationString);
+          let closestObj = await lib.shun.directions['@dev'].closest(nClosest, locationObj, await getAllListings(type));
+          let userObj = {
+            id: id,
+            location: locationObj,
+            type: type,
+            closest: closestObj
+          };
+          dbo.collection('users').replaceOne({
+            id: id
+          }, userObj, {
+            upsert: true
+          }, (err, res) => {
+            if (err) reject(err);
+            db.close();
+            resolve(closestObj);
+          });
+        } catch(err) {
+          reject(err);
+        }
       });
     });
   },
