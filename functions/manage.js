@@ -3,7 +3,7 @@ const fs = require('fs');
 const templatePath = __dirname + '/../static/manage.ejs';
 const lib = require('lib');
 /**
- * Post page
+ * Thank-you or Delete page
  * @param {string} uuid Unique identifier corresponding to the listing
  * @returns {Buffer} Web page returned as a buffer
  */
