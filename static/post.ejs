@@ -37,10 +37,9 @@
   <title>Hearth</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
-  <script src="/../static/js/app.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
+
 <body>
   <section class="hero is-primary is-small">
     <!-- Hero head: will stick at the top -->
@@ -105,7 +104,7 @@
       <div class="field-body">
         <div class="field">
           <p class="control is-fullwidth has-icons-left">
-            <input class="input" type="text" placeholder="Location: Enter ">
+            <input id="location" class="input" type="text" placeholder="Location: Enter ">
             <span class="icon is-small is-left">
               <i class="fas fa-map-marker"></i>
             </span>
@@ -120,36 +119,18 @@
         <div class="field is-expanded is-grouped">
           <div class="field has-addons in-line">
             <p class="control">
-              <a class="button is-static">
+              <button class="button is-static">
                 +1
-              </a>
+              </button>
             </p>
             <p class="control is-normal">
-              <input class="input" type="tel" placeholder="Phone number">
+              <input id="phone" class="input" type="tel" placeholder="Phone number">
             </p>
           </div>
           <div class="control in-line">
-            <a class="button is-info">
+            <button class="button is-info">
               Verify
-            </a>
-          </div>
-        </div>
-        <div class="modal">
-          <div class="modal-background"></div>
-          <div class="modal-card">
-            <header class="modal-card-head">
-              <p class="modal-card-title">Phone # Verification</p>
-              <button class="delete" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-              <div class="field has-addons in-line">
-                <input class="input" type="tel" placeholder="Phone number">
-              </div>
-            </section>
-            <footer class="modal-card-foot">
-              <button class="button is-success">Confirm</button>
-              <button class="button">Cancel</button>
-            </footer>
+            </button>
           </div>
         </div>
       </div>
@@ -162,7 +143,7 @@
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <textarea class="textarea" placeholder="What are you offering?"></textarea>
+            <textarea id="desc" class="input textarea" placeholder="What are you offering?"></textarea>
           </div>
         </div>
       </div>
@@ -175,8 +156,8 @@
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <button class="button is-primary">
-              Send message
+            <button onclick="addListing()" id="go" disabled="true" class="button is-primary">
+              Add listing!
             </button>
           </div>
         </div>
@@ -185,13 +166,33 @@
 
   </section>
   <script>
-    $(document).ready(function(){
+    var _phone, _type, _desc, _location;
+    $(document).ready(function () {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pos){
-          console.log(pos.latitude + ',' + pos.longitude);
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          var q = pos.coords.latitude + ',' + pos.coords.longitude;
+          $.get("https://shun.lib.id/directions@dev/locate?query=&location=" + q, function (loc) {
+            $("#location").val(loc.address);
+          });
         });
       }
     });
+    $(".input").keydown(function(){
+      _phone = $("#phone").val();
+      _type = "food";
+      _desc = $("#desc").val();
+      _location = $("#location").val();
+      if (_phone && _desc && _location != "") {
+        $("#go").prop("disabled", false);
+      } else {
+        $("#go").prop("disabled", true);
+      }
+    });
+    function addListing() {
+      $.get("https://shun.lib.id/hearth@dev/add_listing?id=" + _phone + "&type=" + _type + "&description=" + _desc + "&locationString=" + _location, function (data) {
+        console.log(data);
+      });
+    }
   </script>
 </body>
 

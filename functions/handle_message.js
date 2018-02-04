@@ -20,6 +20,7 @@ module.exports = async (sender, receiver, message, createdDatetime, context) => 
       let response = 'Here\'s what I found for ' + command.command + ' nearby! Reply with a number to choose where to go:\n\n';
       for (let i = 0; i < closest.length; i++) {
         response += '<'+(i+1)+'> ' + closest[i].name + '\n';
+        response += (closest[i].description) ? closest[i].description + '\n' : '';
         response += closest[i].duration + ' away (' + closest[i].distance +')';
         if (i < closest.length - 1) response += '\n\n';
       }
