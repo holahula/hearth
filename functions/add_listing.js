@@ -3,7 +3,7 @@ const md5 = require('md5');
 
 const db = require('../util/dbhelper');
 /**
-* A basic todo app
+* Add a food / shelter listing to the database
 * @param {number} id Phone number of listing poster
 * @param {string} type Type of listing (food or shelter)
 * @param {string} description A brief description of what is being offered (availability, times, etc)
