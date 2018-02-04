@@ -18,5 +18,5 @@ module.exports = async (id, type, description, locationString, context) => {
     throw "Unrecognized listing type";
   }
   await db.addListing(uuid, type, description, locationObj);
-  return "This is a link to a listing page";
+  return "https://shun.lib.id/hearth@dev/manage/?uuid=" + uuid;
 };

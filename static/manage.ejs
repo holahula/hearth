@@ -44,6 +44,7 @@
         console.log("deleting");
         $.get("https://shun.lib.id/hearth@dev/del_listing?uuid=" + "<%- listing.uuid %>", function (data) {
           console.log(data);
+          window.location = "https://shun.lib.id/hearth@dev/post";
         }).fail((err) => {
           console.log(err);
         });
@@ -59,18 +60,19 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
       <div class="container has-text-centered">
+        <img src="https://i.imgur.com/9A6rNIK.png" style="height: 100px;">
         <h1 class="title">
-          Hearth
+          <%- listing.location.name %>
         </h1>
         <h2 class="subtitle">
-          Thanks for helping!
+          Manage my listing
         </h2>
       </div>
     </div>
   </section>
 
   <section class="right-margin">
-    <div class="bottom-margin"> <%- listing.location.name %> </div>
+    <br>
     <div class="bottom-margin"> <%- listing.location.address %> </div>
     <div class="bottom-margin"> <%- listing.description %> </div>
     <div class="control">

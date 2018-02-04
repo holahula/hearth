@@ -151,7 +151,7 @@
     function addListing() {
       $("#go").prop("disabled", true);
       $.get("https://shun.lib.id/hearth@dev/add_listing?id=" + _phone + "&type=" + _type + "&description=" + _desc + "&locationString=" + _location, function (data) {
-        console.log(data);
+        window.location = data;
       });
     }
   </script>
