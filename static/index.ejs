@@ -13,10 +13,15 @@
      margin-right: 10vw;
      margin-left: 10vw;
    }
+   .left-margin {
+     margin-left: 5px;
+   }
    p {
      margin-right: 10px;
    }
-
+   .in-line {
+     display: inline-block;
+   }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=, initial-scale=1">
@@ -98,11 +103,11 @@
   </div>
 </div>
 
-<div class="field is-horizontal">
-  <div class="field-label">
+<div class="field-body is-horizontal">
+  <div class="field-label"></div>
   <div class="field-body">
-    <div class="field is-expanded">
-      <div class="field has-addons">
+    <div class="field is-expanded is-grouped">
+      <div class="field has-addons in-line">
         <p class="control">
           <a class="button is-static">
             +1
@@ -112,19 +117,31 @@
           <input class="input" type="tel" placeholder="Phone number">
         </p>
       </div>
-      <div class="control">
+      <div class="control in-line">
         <a class="button is-info">
           Verify
         </a>
       </div>
-      <div class="field">
-    <p class="control is-normal">
-      <input class="input" type="tel" placeholder="Enter Code">
-    </p>
-      </div>
     </div>
+    <div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Phone # Verification</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field has-addons in-line">
+            <input class="input" type="tel" placeholder="Phone number">
+      </div>
+     </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Confirm</button>
+      <button class="button">Cancel</button>
+    </footer>
   </div>
 </div>
+  </div>
 </div>
 
 <div class="field is-horizontal">
