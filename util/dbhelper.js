@@ -13,14 +13,14 @@ const dbhelper = {
         let dbo = db.db('qhacks2018');
         let locationObj = await lib.shun.directions.locate(locationString);
         let closestObj = await lib.shun.directions.closest(locationObj.address, await getAllListings(type), nClosest);
-        console.log(closestObj);
+        //console.log(closestObj);
         let userObj = {
           id: id,
           location: locationObj,
           type: type,
           closest: closestObj
         }
-        dbo.collection('users').insertOne(userObj, (err, res) =>{
+        dbo.collection('users').replaceOne({id: id}, userObj, {upsert: true}, (err, res) =>{
           if (err) reject(err);
           db.close();
           resolve(closestObj);
@@ -54,39 +54,17 @@ const dbhelper = {
       MongoClient.connect(dbUrl, async (err, db) =>{
         if (err) throw err;
         let dbo = db.db('qhacks2018');
-        let search = await dbo.collection('users').find({id: id});
-        search = search.toArray()
+        let search = await dbo.collection('users').findOne({id: id});
         db.close();
-        if (len(search) < 1){
+        if (!search){
           reject("No request made.");
         }else if (index > len(search.closest)){
           reject("Index out of range");
         }
-        resolve(search[0].closest[index-1]);
+        resolve(search.closest[index-1]);
       });
     });
   }
-  
-  // getUser: (id) => {
-  //   MongoClient.connect(url, function(err, db) {
-  //     if (err) throw err;
-      
-  //     db.close();
-  //   });
-  // },
-  // createCollection: (collectionstr) => {
-  //   return new Promise((resolve)=>{
-  //     MongoClient.connect(dbUrl, function(err, db) {
-  //       if (err) throw err;
-  //       let dbo = db.db("qhacks2018");
-  //       dbo.createCollection(collectionstr, (err, res) => {
-  //         if (err) throw err;
-  //         db.close();
-  //         resolve("CREATED!");
-  //       });
-  //     });
-  //   });
-  // }
 }
 
 function getAllListings(type){
