@@ -60,20 +60,18 @@ const dbhelper = {
       MongoClient.connect(dbUrl, async (err, db) => {
         if (err) reject(err);
         let dbo = db.db('qhacks2018');
-        //console.log(listingObj)
         let listing = await dbo.collection('listings').findOne({
           uuid: uuid
         });
-        resolve(listing)
+        resolve(listing);
       });
     });
   },
   delListing: (uuid) => {
     return new Promise((resolve, reject) => {
-      MongoClient.connect(dbUrl, async (err, db) => {
+      MongoClient.connect(dbUrl, (err, db) => {
         if (err) reject(err);
         let dbo = db.db('qhacks2018');
-        console.log(listingObj)
         dbo.collection('listings').remove({
           uuid: uuid
         }, (err, res) => {

@@ -21,6 +21,6 @@ module.exports = (uuid, context, callback) => {
         'Content-Type': 'text/html'
       })
     );
-  })
+  });
   
 };
