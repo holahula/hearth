@@ -3,8 +3,8 @@ const lib = require('lib');
 const db = require('../util/dbhelper');
 /**
 * Get and return listing object
-* @param {number} uuid Unique identifier of listing to be deleted
-* @returns {Object} 
+* @param {string} uuid Unique identifier of listing to be deleted
+* @returns {object} 
 */
 module.exports = async (uuid) => {
   let status = await db.getListing(uuid);
