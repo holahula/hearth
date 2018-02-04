@@ -4,7 +4,7 @@ const templatePath = __dirname + '/../static/index.ejs';
 const lib = require('lib');
 /**
 * A basic todo app
-* @returns {Buffer}
+* @returns {Buffer} Web page returned as a buffer
 */
 module.exports = (context, callback) => {
   return ejs.renderFile(

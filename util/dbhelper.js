@@ -55,6 +55,19 @@ const dbhelper = {
       });
     });
   },
+  getListing: (uuid) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(dbUrl, async (err, db) => {
+        if (err) reject(err);
+        let dbo = db.db('qhacks2018');
+        //console.log(listingObj)
+        let listing = await dbo.collection('listings').findOne({
+          uuid: uuid
+        });
+        resolve(listing)
+      });
+    });
+  },
   delListing: (uuid) => {
     return new Promise((resolve, reject) => {
       MongoClient.connect(dbUrl, async (err, db) => {
