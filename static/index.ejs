@@ -5,6 +5,11 @@
    body {
      overflow-x: hidden;
      overflow-style: none;
+     margin: 0;
+     padding:0;
+   }
+   img {
+     height: 300px;
    }
    .logocon {
      display: flex;
@@ -142,15 +147,10 @@
     <body>
     <!--cover w/ skrollr values (for example data-100 for styles at 100 pixels scroled)-->
     <div class="logocon" data-0="opacity: 1; display: flex" data-99="opacity: 0; display: none" data-100="display: none">
-      <div class="logo">Hearth</div>
+      <a href="/hearth@dev/post">
+        <img src="https://i.imgur.com/9A6rNIK.png">
+      </a>
     </div>
-
-    <div class="hint is-dark" data-0="bottom: 10vh" data-100="bottom: -25px">
-      <a href="/hearth@dev/post" class="button is-text">click to enter</a>
-    </div>
-    <!--page contents below-->
-
-    <div class="menu">Hearth</div>
 
     </body>
 
