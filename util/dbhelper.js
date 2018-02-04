@@ -47,6 +47,20 @@ const dbhelper = {
       });
     });
   },
+  delListing: (uuid) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(dbUrl, async (err, db) => {
+        if (err) reject(err);
+        let dbo = db.db('qhacks2018');
+        console.log(listingObj)
+        dbo.collection('listings').remove({uuid:uuid}, (err, res) =>{
+          if (err) reject(err);
+          db.close();
+          resolve(res);
+        });
+      });
+    });
+  },
   getNearbyAddress: (id, index) => {
     return new Promise((resolve, reject) => {
       MongoClient.connect(dbUrl, async (err, db) =>{
