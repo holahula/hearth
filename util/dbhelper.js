@@ -5,7 +5,7 @@ const dbUrl = process.env.MONGO_CONNECTION_STRING;
 const nClosest = 5;
 
 const dbhelper = {
-  setUser: (id, type, locationString) => {
+  addUser: (id, type, locationString) => {
     //set user object (called by handle_message)
     return new Promise((resolve, reject) => {
       MongoClient.connect(dbUrl, async (err, db) => {
@@ -21,6 +21,27 @@ const dbhelper = {
           closest: closestObj
         }
         dbo.collection("users").insertOne(userObj, (err, res) =>{
+          if (err) reject(err);
+          db.close();
+          resolve(closestObj);
+        });
+      });
+    });
+  },
+  addListing: (uuid, type, description, locationObj) => {
+    //set user object (called by handle_message)
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(dbUrl, async (err, db) => {
+        if (err) reject(err);
+        let dbo = db.db("qhacks2018");
+        var listingObj = {
+          uuid: uuid,
+          type: type,
+          description: description,
+          location: locationObj
+        }
+        console.log(listingObj)
+        dbo.collection("listings").insertOne(listingObj, (err, res) =>{
           if (err) reject(err);
           db.close();
           resolve("Success!");
