@@ -11,11 +11,11 @@ const db = require('../util/dbhelper');
  */
 
 module.exports = async (sender, receiver, message, createdDatetime, context) => {
-  console.log(message);
   let parsedInput = sms.parseCommand(message);
   if (parsedInput) {
     let closest = await db.addUser(sender, parsedInput.command, parsedInput.query);
+    console.log(parsedInput);
     let sentText = await sms.textOut(receiver, sender, JSON.stringify(closest));
   }
-  return;
+  return 'Message sent to ' + sender;
 };

@@ -12,14 +12,13 @@ const dbhelper = {
         if (err) reject(err);
         let dbo = db.db('qhacks2018');
         let locationObj = await lib.shun.directions.locate(locationString);
-        let closestObj = await lib.shun.directions.closest(locationObj.address, await getAllListings(type), nClosest);
-        //console.log(closestObj);
+        let closestObj = await lib.shun.directions.closest(nClosest, locationObj, await getAllListings(type));
         let userObj = {
           id: id,
           location: locationObj,
           type: type,
           closest: closestObj
-        }
+        };
         dbo.collection('users').replaceOne({id: id}, userObj, {upsert: true}, (err, res) =>{
           if (err) reject(err);
           db.close();
@@ -40,7 +39,6 @@ const dbhelper = {
           description: description,
           location: locationObj
         }
-        console.log(listingObj)
         dbo.collection('listings').insertOne(listingObj, (err, res) =>{
           if (err) reject(err);
           db.close();
@@ -73,8 +71,11 @@ function getAllListings(type){
     MongoClient.connect(dbUrl, async (err, db) => {
       if (err) reject(err);
       let dbo = db.db('qhacks2018');
-      let toReturn = await dbo.collection('listings').find({type: type}).toArray();
-      console.log(toReturn);
+      let listings = await dbo.collection('listings').find({type: type}).toArray();
+      let toReturn = [];
+      for (listing of listings) {
+        toReturn.push(listing.location);
+      }
       db.close();
       resolve(toReturn);
     });

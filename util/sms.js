@@ -4,7 +4,6 @@ const lib = require('lib')({
 
 const sms = {
   parseCommand: (message) => {
-    console.log(message);
     let i = message.indexOf(" ");
     let command = message.slice(0, i);
     let query = message.slice(i + 1);
