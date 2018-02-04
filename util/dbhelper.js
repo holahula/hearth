@@ -19,7 +19,11 @@ const dbhelper = {
           type: type,
           closest: closestObj
         };
-        dbo.collection('users').replaceOne({id: id}, userObj, {upsert: true}, (err, res) =>{
+        dbo.collection('users').replaceOne({
+          id: id
+        }, userObj, {
+          upsert: true
+        }, (err, res) => {
           if (err) reject(err);
           db.close();
           resolve(closestObj);
@@ -39,7 +43,7 @@ const dbhelper = {
           description: description,
           location: locationObj
         }
-        dbo.collection('listings').insertOne(listingObj, (err, res) =>{
+        dbo.collection('listings').insertOne(listingObj, (err, res) => {
           if (err) reject(err);
           db.close();
           resolve('Success!');
@@ -53,7 +57,9 @@ const dbhelper = {
         if (err) reject(err);
         let dbo = db.db('qhacks2018');
         console.log(listingObj)
-        dbo.collection('listings').remove({uuid:uuid}, (err, res) =>{
+        dbo.collection('listings').remove({
+          uuid: uuid
+        }, (err, res) => {
           if (err) reject(err);
           db.close();
           resolve(res);
@@ -61,31 +67,38 @@ const dbhelper = {
       });
     });
   },
-  getNearbyAddress: (id, index) => {
+  getNearbyLocation: (id, index) => {
     return new Promise((resolve, reject) => {
-      MongoClient.connect(dbUrl, async (err, db) =>{
+      MongoClient.connect(dbUrl, async (err, db) => {
         if (err) throw err;
         let dbo = db.db('qhacks2018');
-        let search = await dbo.collection('users').findOne({id: id});
+        let search = await dbo.collection('users').findOne({
+          id: id
+        });
         db.close();
-        if (!search){
+        if (!search) {
           reject("No request made.");
-        }else if (index > len(search.closest)){
+        } else if (index > search.closest.length) {
           reject("Index out of range");
         }
-        resolve(search.closest[index-1]);
+        resolve({
+          from: search.location,
+          to: search.closest[index - 1]
+        });
       });
     });
   }
 }
 
-function getAllListings(type){
+function getAllListings(type) {
   //return all listings matching type parameter
   return new Promise((resolve, reject) => {
     MongoClient.connect(dbUrl, async (err, db) => {
       if (err) reject(err);
       let dbo = db.db('qhacks2018');
-      let listings = await dbo.collection('listings').find({type: type}).toArray();
+      let listings = await dbo.collection('listings').find({
+        type: type
+      }).toArray();
       let toReturn = [];
       for (listing of listings) {
         toReturn.push(listing.location);

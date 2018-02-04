@@ -11,11 +11,20 @@ const db = require('../util/dbhelper');
  */
 
 module.exports = async (sender, receiver, message, createdDatetime, context) => {
-  let parsedInput = sms.parseCommand(message);
-  if (parsedInput) {
-    let closest = await db.addUser(sender, parsedInput.command, parsedInput.query);
-    console.log(parsedInput);
-    let sentText = await sms.textOut(receiver, sender, JSON.stringify(closest));
+  let command = sms.parseCommand(message);
+  let number = sms.parseNumber(message);
+  if (command) {
+    let closest = await db.addUser(sender, command.command, command.query);
+    console.log(command);
+    await sms.textOut(receiver, sender, JSON.stringify(closest));
+  } else if (number) {
+    try {
+      let response = await db.getNearbyLocation(sender, number);
+      let directions = await lib.shun.directions(response.from.address, response.to.address);
+      await sms.textOut(receiver, sender, directions);
+    } catch (err) {
+      await sms.textOut(receiver, sender, "bad request. heres how u do it properly u pleb");
+    }
   }
   return 'Message sent to ' + sender;
 };
