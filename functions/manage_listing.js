@@ -2,10 +2,11 @@ const lib = require('lib');
 
 const db = require('../util/dbhelper');
 /**
-* Delete listing with given uuid
+* Get and return listing object
 * @param {number} uuid Unique identifier of listing to be deleted
+* @returns {Object} 
 */
 module.exports = async (uuid) => {
   let status = await db.getListing(uuid);
-  //Return a page buffer with info and dellisting link
+  return status;
 };
