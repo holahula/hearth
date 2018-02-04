@@ -3,6 +3,7 @@ const sms = require('../util/sms');
 const db = require('../util/dbhelper');
 
 /**
+ * Handles all SMS functions: receive, parse, send 
  * @param {string} sender The phone number that sent the text to be handled
  * @param {string} receiver The StdLib phone number that received the SMS
  * @param {string} message The contents of the SMS
@@ -13,7 +14,7 @@ const db = require('../util/dbhelper');
 module.exports = async (sender, receiver, message, createdDatetime, context) => {
   let command = sms.parseCommand(message);
   let number = sms.parseNumber(message);
-  console.log(command, number);
+  //console.log(command, number);
   if (command) {
     try {
       let closest = await db.addUser(sender, command.command, command.query);
@@ -24,7 +25,7 @@ module.exports = async (sender, receiver, message, createdDatetime, context) => 
         response += closest[i].duration + ' away (' + closest[i].distance +')';
         if (i < closest.length - 1) response += '\n\n';
       }
-      console.log(command);
+      //console.log(command);
       await sms.textOut(receiver, sender, response);
     } catch(err) {
       await sms.textOut(receiver, sender, 'Sorry! We couldn\'t find ' + command.command + ' near \'' + command.query+'\'');
