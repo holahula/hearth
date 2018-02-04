@@ -34,8 +34,10 @@ module.exports = async (sender, receiver, message, createdDatetime, context) => 
       let directions = await lib.shun.directions['@dev']('walking', response.from, response.to);
       await sms.textOut(receiver, sender, directions);
     } catch (err) {
-      await sms.textOut(receiver, sender, 'Welcome to Hearth! Use \'food <your address>\' or \'shelter <your address>\'');
+      await sms.textOut(receiver, sender, 'Please choose a destination or use \'food <your address>\' or \'shelter <your address>\'');
     }
+  } else {
+    await sms.textOut(receiver, sender, 'Welcome to Hearth! Use \'food <your address>\' or \'shelter <your address>\'');
   }
   return 'Message sent to ' + sender;
 };

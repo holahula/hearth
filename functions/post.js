@@ -1,9 +1,9 @@
 const ejs = require('ejs');
 const fs = require('fs');
-const templatePath = __dirname + '/../static/index.ejs';
+const templatePath = __dirname + '/../static/post.ejs';
 const lib = require('lib');
 /**
- * Landing page
+ * Post page
  * @returns {Buffer} Web page returned as a buffer
  */
 module.exports = (context, callback) => {

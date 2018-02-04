@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    span+span {
+      margin-bottom: 10px;
+    }
+
+    .top-margin {
+      margin-top: 10px;
+    }
+
+    .bottom-margin {
+      margin-bottom: 15px;
+    }
+
+    .right-margin {
+      margin-right: 10vw;
+      margin-left: 10vw;
+    }
+
+    .left-margin {
+      margin-left: 5px;
+    }
+
+    p {
+      margin-right: 10px;
+    }
+
+    .in-line {
+      display: inline-block;
+    }
+  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=, initial-scale=1">
+  <title>Hearth</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="/../static/js/app.js"></script>
+</head>
+<body>
+  <section class="hero is-primary is-small">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item">
+              <h1>
+                ~ QHacks 2018 ~
+              </h1>
+              <!-- <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo"> -->
+            </a>
+            <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navbarMenuHeroA" class="navbar-menu">
+            <div class="navbar-end">
+              <a class="navbar-item is-active">
+                Home
+              </a>
+              <a class="navbar-item">
+                Form
+              </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">
+          Hearth
+        </h1>
+        <h2 class="subtitle">
+          Thanks for helping!
+        </h2>
+      </div>
+    </div>
+
+    <!-- Hero footer: will stick at the bottom -->
+    <div class="hero-foot">
+      <br></br>
+    </div>
+  </section>
+
+  <section class="form right-margin">
+    <div class="bottom-margin"> </div>
+    <div class="field-label is-large">
+      <!-- Left empty for spacing -->
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">From</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <p class="control is-fullwidth has-icons-left">
+            <input class="input" type="text" placeholder="Location: Enter ">
+            <span class="icon is-small is-left">
+              <i class="fas fa-map-marker"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-body is-horizontal">
+      <div class="field-label"></div>
+      <div class="field-body">
+        <div class="field is-expanded is-grouped">
+          <div class="field has-addons in-line">
+            <p class="control">
+              <a class="button is-static">
+                +1
+              </a>
+            </p>
+            <p class="control is-normal">
+              <input class="input" type="tel" placeholder="Phone number">
+            </p>
+          </div>
+          <div class="control in-line">
+            <a class="button is-info">
+              Verify
+            </a>
+          </div>
+        </div>
+        <div class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Phone # Verification</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+              <div class="field has-addons in-line">
+                <input class="input" type="tel" placeholder="Phone number">
+              </div>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-success">Confirm</button>
+              <button class="button">Cancel</button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal top-margin">
+      <div class="field-label is-normal">
+        <label class="label">Description</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <textarea class="textarea" placeholder="What are you offering?"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <!-- Left empty for spacing -->
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary">
+              Send message
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <script>
+    $(document).ready(function(){
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos){
+          console.log(pos.latitude + ',' + pos.longitude);
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
