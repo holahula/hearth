@@ -2,48 +2,160 @@
 <html>
   <head>
     <style>
-    span + span {
-        margin-bottom: 10px;
-    }
-    .top-margin{
-      margin-top: 10px;
-    }
-    .bottom-margin {
-     margin-bottom: 15px;
+   body {
+     overflow-x: hidden;
+     overflow-style: none;
    }
-   .right-margin {
-     margin-right: 10vw;
-     margin-left: 10vw;
+   .logocon {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 100vw;
+     height: 100vh;
+     background: #e61919;
+     animation: color 30s linear infinite;
+     user-select: none;
+     position: absolute;
+     z-index: 3;
    }
-   .left-margin {
-     margin-left: 5px;
+   .menu {
+     position: fixed;
+     z-index: 2;
+     width: 100vw;
+     height: 50px;
+     background: rgba(0,0,0,0.85);
+     color: #ccc;
+     text-align: center;
+     line-height: 50px;
+     font: 300 32px Georgia;
    }
-   p {
-     margin-right: 10px;
+   a {
+     padding: 5px 10px;
+     border: 1px solid;
+     border-radius: 30px;
+     font-family: Georgia;
+     color: #f39;
+     transition: background 0.3s;
    }
-   .in-line {
-     display: inline-block;
+   a:hover {
+     background: #f39;
+     color: #fff;
+     border: 0;
+   }
+   .logo {
+     font: 300 150px Georgia;
+     color: #fff;
+     cursor: default;
+   }
+   .hint {
+     position: fixed;
+     z-index: 4;
+     bottom: 10vh;
+     width: 100vw;
+     text-align: center;
+     color: rgba(255,255,255,0.6);
+     font: 300 30px Comfortaa;
+   }
+   .content {
+     padding: 30px;
+     position: relative;
+     top: 20vh;
+     height: 200vh;
+     font: 16px Veranda;
+   }
+   @-moz-keyframes color {
+     0% {
+       background: #e61919;
+     }
+     25% {
+       background: #80e619;
+     }
+     50% {
+       background: #19e5e6;
+     }
+     75% {
+       background: #7f19e6;
+     }
+     100% {
+       background: #e61919;
+     }
+   }
+   @-webkit-keyframes color {
+     0% {
+       background: #e61919;
+     }
+     25% {
+       background: #80e619;
+     }
+     50% {
+       background: #19e5e6;
+     }
+     75% {
+       background: #7f19e6;
+     }
+     100% {
+       background: #e61919;
+     }
+   }
+   @-o-keyframes color {
+     0% {
+       background: #e61919;
+     }
+     25% {
+       background: #80e619;
+     }
+     50% {
+       background: #19e5e6;
+     }
+     75% {
+       background: #7f19e6;
+     }
+     100% {
+       background: #e61919;
+     }
+   }
+   @keyframes color {
+     0% {
+       background: #e61919;
+     }
+     25% {
+       background: #80e619;
+     }
+     50% {
+       background: #19e5e6;
+     }
+     75% {
+       background: #7f19e6;
+     }
+     100% {
+       background: #e61919;
+     }
    }
     </style>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=, initial-scale=1">
+    <meta name="viewport" content="width=is-fullwidth, initial-scale=1">
     <title>Hearth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   </head>
+
     <body>
-      <section class="hero is-info is-large">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              Large title
-            </h1>
-            <h2 class="subtitle">
-              Large subtitle
-            </h2>
-          </div>
-        </div>
-      </section>
+    <!--cover w/ skrollr values (for example data-100 for styles at 100 pixels scroled)-->
+    <div class="logocon" data-0="opacity: 1; display: flex" data-99="opacity: 0; display: none" data-100="display: none">
+      <div class="logo">Hearth</div>
+    </div>
+    <div class="hint" data-0="bottom: 10vh" data-100="bottom: -25px">click to enter</div>
+
+    <!--page contents below-->
+    <script src="js/app.js"></script>
+
+    <div class="menu">Hearth</div>
+
+    <script> window.sr = ScrollReveal();
+    sr.reveal('.menu');
+     </script>
+
+      <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
     </body>
 
 </html>
