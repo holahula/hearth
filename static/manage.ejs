@@ -38,6 +38,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    console.log("AA")
+      function delListing(){
+        console.log("deleting");
+        $.get("https://shun.lib.id/hearth@dev/del_listing?uuid=" + "<%- listing.uuid %>", function (data) {
+          console.log(data);
+        }).fail((err) => {
+          console.log(err);
+        });
+      }
+    console.log("BB")
+    </script>
 </head>
 
 <body>
@@ -61,12 +73,14 @@
     <div class="bottom-margin"> <%- listing.location.name %> </div>
     <div class="bottom-margin"> <%- listing.location.address %> </div>
     <div class="bottom-margin"> <%- listing.description %> </div>
-
+    <div class="control">
+      <button onclick="delListing()" id="go" class="button is-primary">
+        Delete listing
+      </button>
+    </div>
   </section>
   
-  <script>
-
-  </script>
+  
 </body>
 
 </html>

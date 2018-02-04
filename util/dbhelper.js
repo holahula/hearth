@@ -60,10 +60,12 @@ const dbhelper = {
       MongoClient.connect(dbUrl, async (err, db) => {
         if (err) reject(err);
         let dbo = db.db('qhacks2018');
+        //console.log(listingObj)
         let listing = await dbo.collection('listings').findOne({
           uuid: uuid
         });
-        resolve(listing);
+        db.close();
+        resolve(listing); 
       });
     });
   },
@@ -74,7 +76,7 @@ const dbhelper = {
         let dbo = db.db('qhacks2018');
         dbo.collection('listings').remove({
           uuid: uuid
-        }, (err, res) => {
+        }, {justOne: true}, (err, res) => {
           if (err) reject(err);
           db.close();
           resolve(res);
